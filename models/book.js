@@ -1,4 +1,4 @@
-const pool = require('../config/database');
+ const pool = require('../config/database');
 const axios = require('axios');
 
 class Book {
@@ -69,30 +69,39 @@ class Book {
         }
     }
 
-    // Fetch book cover using Google Books API or Open Library
+    // Updated method for Open Library API
     static async fetchBookCover(identifier) {
         try {
-            // Try Google Books API first
-            const googleResponse = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(identifier)}`);
-            
-            if (googleResponse.data.items && googleResponse.data.items.length > 0) {
-                const book = googleResponse.data.items[0];
-                if (book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail) {
-                    return book.volumeInfo.imageLinks.thumbnail.replace('http:', 'https:');
+            // Method 1: If we have an ISBN, use Open Library directly
+            if (identifier && (identifier.length === 10 || identifier.length === 13)) {
+                const openLibraryUrl = `https://covers.openlibrary.org/b/isbn/${identifier}-L.jpg`;
+                return openLibraryUrl;
+            }
+
+            // Method 2: Search by title using Open Library Search API
+            if (identifier) {
+                const searchResponse = await axios.get(`https://openlibrary.org/search.json?title=${encodeURIComponent(identifier)}&limit=1`);
+                
+                if (searchResponse.data.docs && searchResponse.data.docs.length > 0) {
+                    const book = searchResponse.data.docs[0];
+                    
+                    // Try to get ISBN from the search result
+                    if (book.isbn && book.isbn.length > 0) {
+                        return `https://covers.openlibrary.org/b/isbn/${book.isbn[0]}-L.jpg`;
+                    }
+                    
+                    // Try to get cover using Open Library ID
+                    if (book.cover_i) {
+                        return `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`;
+                    }
                 }
             }
 
-            // Fallback to Open Library
-            if (identifier.length === 10 || identifier.length === 13) {
-                // It's likely an ISBN
-                return `https://covers.openlibrary.org/b/isbn/${identifier}-M.jpg`;
-            }
-
-            // Default placeholder image
-            return 'https://via.placeholder.com/128x192.png?text=No+Cover';
+            // Default placeholder if no cover found
+            return 'https://via.placeholder.com/200x300.png?text=No+Cover+Available';
         } catch (error) {
             console.error('Error fetching book cover:', error);
-            return 'https://via.placeholder.com/128x192.png?text=No+Cover';
+            return 'https://via.placeholder.com/200x300.png?text=No+Cover+Available';
         }
     }
 }

@@ -5,7 +5,7 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Import routes
+
 const indexRoutes = require('./routes/index');
 const bookRoutes = require('./routes/books');
 
@@ -29,5 +29,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(` Server running on http://localhost:${PORT}`);
 }); 

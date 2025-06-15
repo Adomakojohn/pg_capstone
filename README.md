@@ -4,20 +4,19 @@ A simple web application to track books you've read, built with Node.js, Express
 
 ## Features
 
-- 📖 Add and manage your reading collection
-- ⭐ Rate books from 1-5 stars
-- 🖼️ Automatic book cover fetching using APIs
-- 📅 Track when you read each book
-- 📝 Add descriptions and personal notes
-- 🎨 Modern, responsive design
-- 📱 Mobile-friendly interface
+-  Add and manage your reading collection
+-  Rate books from 1-5 stars
+-  Automatic book cover fetching using APIs
+-  Track when you read each book
+-  Add descriptions and personal notes
+-  Mobile-friendly interface
 
 ## Tech Stack
 
 - **Backend**: Node.js, Express.js
 - **Database**: PostgreSQL
 - **Frontend**: EJS templating, HTML5, CSS3
-- **APIs**: Google Books API, Open Library API (for book covers)
+- **APIs**:  Open Library API (for book covers)
 - **HTTP Client**: Axios
 
 ## Prerequisites

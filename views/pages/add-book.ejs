@@ -11,8 +11,17 @@
     
     <main class="main-content">
         <div class="container">
+            <!-- Breadcrumbs -->
+            <nav class="breadcrumbs">
+                <a href="/">Home</a>
+                <span>></span>
+                <a href="/books">My Books</a>
+                <span>></span>
+                <span>Add Book</span>
+            </nav>
+            
             <div class="form-container">
-                <h2>📚 Add New Book</h2>
+                <h2>Add New Book</h2>
                 
                 <% if (typeof error !== 'undefined') { %>
                     <div class="alert alert-error">

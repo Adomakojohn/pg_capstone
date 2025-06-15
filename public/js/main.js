@@ -1,4 +1,4 @@
-// Main JavaScript file for Books Tracker
+
 
 document.addEventListener('DOMContentLoaded', function() {
     // Add smooth scrolling for anchor links
@@ -42,5 +42,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    console.log('📚 Books Tracker loaded successfully!');
+    console.log(' Books Tracker loaded successfully!');
 }); 
